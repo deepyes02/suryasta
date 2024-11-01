@@ -54,4 +54,22 @@ struct PersistenceController {
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
     }
+    
+    //destroyer of worlds
+    var context: NSManagedObjectContext {
+        return container.viewContext
+    }
+    func deleteAllItems(){
+        let context = self.container.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Item")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        
+        do {
+            try context.execute(deleteRequest)
+            try context.save()
+        } catch let error as NSError{
+            print("Error: \(error.localizedDescription)")
+        }
+        
+    }
 }

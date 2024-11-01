@@ -34,9 +34,17 @@ struct ContentView: View {
                         Label("Add Item", systemImage: "plus")
                     }
                 }
+                ToolbarItem{
+                    Button(action: removeAllItems) {
+                        Label("Delete All", systemImage: "trash")
+                    }
+                }
             }
-            Text("Select an item")
         }
+    }
+    
+    private func removeAllItems(){
+        PersistenceController.shared.deleteAllItems()
     }
 
     private func addItem() {
